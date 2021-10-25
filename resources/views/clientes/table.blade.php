@@ -13,12 +13,12 @@
                 <td>{{ $cliente->apn_nom }}</td>
             <td>{{ $cliente->sexo }}</td>
                 <td width="120">
-                    {!! Form::open(['route' => ['clientes.destroy', $cliente->id], 'method' => 'delete']) !!}
+                    {!! Form::open(['route' => ['clientes.destroy', $cliente->idcliente], 'method' => 'delete']) !!}
                     <div class='btn-group'>
-                        <a href="{{ route('clientes.show', [$cliente->id]) }}" class='btn btn-default btn-xs'>
+                        <a href="{{ route('clientes.show', [$cliente->idcliente]) }}" class='btn btn-default btn-xs'>
                             <i class="far fa-eye"></i>
                         </a>
-                        <a href="{{ route('clientes.edit', [$cliente->id]) }}" class='btn btn-default btn-xs'>
+                        <a href="{{ route('clientes.edit', [$cliente->idcliente]) }}" class='btn btn-default btn-xs'>
                             <i class="far fa-edit"></i>
                         </a>
                         {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}

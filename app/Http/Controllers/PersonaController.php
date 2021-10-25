@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Cliente;
+use App\Models\Persona;
 
-class VueController extends Controller
+class PersonaController extends Controller
 {
     //
     public function __construct()
@@ -17,51 +17,51 @@ class VueController extends Controller
     {
         //$clientes = $this->clienteRepository->all();
         $mensajeeloquent="Hola esta funcionando";
-        return view('vuecliente.index',compact( 'mensajeeloquent'))        ;
+        return view('vuepersona.index',compact( 'mensajeeloquent'))        ;
     }
 
     public function lista(Request $request)
     {
-        $cliente = Cliente::all();
-        return $cliente;
+        $persona = Persona::all();
+        return $persona;
         //Esta función nos devolvera todas las tareas que tenemos en nuestra BD
     }
 
     public function store(Request $request)
     {
-        $cliente = new Cliente();
-        $cliente->apn_nom = $request->apn_nom;
-        $cliente->sexo = $request->sexo;
-        $cliente->numero = $request->numero;
-        $cliente->save();
+        $persona = new Persona();
+        $persona->apellido = $request->apellido;
+        $persona->nombre = $request->nombre;
+        $persona->dni = $request->dni;
+        $persona->save();
         //Esta función guardará las tareas que enviaremos mediante vuejs
     }
     public function show(Request $request)
     {
-        $cliente = Cliente::findOrFail($request->idcliente);
-        return $cliente;
+        $persona = Persona::findOrFail($request->idpersona);
+        return $persona;
         //Esta función devolverá los datos de una tarea que hayamos seleccionado para cargar el formulario con sus datos
     }
 
     public function update(Request $request)
     {
-        $cliente = Cliente::findOrFail($request->idcliente);
+        $persona = Persona::findOrFail($request->idpersona);
 
-        $cliente->apn_nom = $request->apn_nom;
-        $cliente->sexo = $request->sexo;
-        $cliente->numero = $request->numero;
+        $persona->apellido = $request->apellido;
+        $persona->nombre = $request->nombre;
+        $persona->dni = $request->dni;
 
-        $cliente->save();
+        $persona->save();
 
-        return $cliente;
+        return $persona;
         //Esta función actualizará la tarea que hayamos seleccionado
        
     }
 
     public function destroy(Request $request)
     {
-        $cliente = Cliente::destroy($request->idcliente);
-        return $cliente;
+        $persona = Persona::destroy($request->idpersona);
+        return $persona;
         //Esta función obtendra el idcliente de la tarea que hayamos seleccionado y la borrará de nuestra BD
     }
 

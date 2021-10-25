@@ -10,16 +10,16 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @package App\Models
  * @version October 21, 2021, 2:21 am UTC
  *
- * @property string $apn_nom
- * @property string $sexo
+ * @property string $apellido
+ * @property string $nombre
  */
 class Persona extends Model
 {
     //
      //use SoftDeletes;
 
-     public $table = 'cliente';
-     protected $primaryKey= 'idcliente';
+     public $table = 'persona';
+     protected $primaryKey= 'idpersona';
      public $timestamps =false;
  
      
@@ -32,8 +32,8 @@ class Persona extends Model
  
  
      public $fillable = [
-         'apn_nom',
-         'sexo'
+         'apellido',
+         'nombre'
      ];
  
      /**
@@ -42,9 +42,9 @@ class Persona extends Model
       * @var array
       */
      protected $casts = [
-         'idcliente' => 'integer',
-         'apn_nom' => 'string',
-         'sexo' => 'string'
+         'idpersona' => 'integer',
+         'apellido' => 'string',
+         'nombre' => 'string'
      ];
  
      /**
@@ -53,7 +53,7 @@ class Persona extends Model
       * @var array
       */
      public static $rules = [
-         'apn_nom' => 'nullable|string|max:45',
-         'sexo' => 'nullable|string|max:45'
+         'apellido' => 'nullable|string|max:45',
+         'nombre' => 'nullable|string|max:45'
      ];
 }

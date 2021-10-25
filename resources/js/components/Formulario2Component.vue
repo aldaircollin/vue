@@ -2,21 +2,21 @@
     <div class="container container-task">
         <div class="row">
             <div class="col-md-6">
-                <h2>Lista de tareas</h2>
+                <h2>Lista de persona</h2>
                 <table class="table text-center"><!--Creamos una tabla que mostrará todas las tareas-->
                         <thead>
                             <tr>
+                                <th scope="col">Apellido</th>
                                 <th scope="col">Nombre</th>
-                                <th scope="col">Sexo</th>
-                                <th scope="col">Numero</th>
+                                <th scope="col">DNI</th>
                                 <th scope="col">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr v-for="task in arrayTasks" :key="task.id"> <!--Recorremos el array y cargamos nuestra tabla-->
-                                <td v-text="task.apn_nom"></td>
-                                <td v-text="task.sexo"></td>
-                                 <td v-text="task.numero"></td>
+                                <td v-text="task.apellido"></td>
+                                <td v-text="task.nombre"></td>
+                                 <td v-text="task.dni"></td>
 
                                 <td>
                                     <!--Botón modificar, que carga los datos del formulario con la tarea seleccionada-->
@@ -30,19 +30,19 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group"><!-- Formulario para la creación o modificación de nuestras tareas-->
-                    <label>Nombre</label>
-                    <input v-model="apn_nom" type="text" class="form-control">
+                    <label>Apellido</label>
+                    <input v-model="apellido" type="text" class="form-control">
 
                 </div>
 
                  <div class="form-group"><!-- Formulario para la creación o modificación de nuestras tareas-->
-                    <label>Sexo</label>
-                    <input v-model="sexo" type="text" class="form-control">
+                    <label>Nombre</label>
+                    <input v-model="nombre" type="text" class="form-control">
                 </div>
 
                 <div class="form-group"><!-- Formulario para la creación o modificación de nuestras tareas-->
-                    <label>Numero</label>
-                    <input v-model="numero" type="text" class="form-control">
+                    <label>DNI</label>
+                    <input v-model="dni" type="text" class="form-control">
                 </div>
 
                 <div class="container-buttons">
@@ -62,9 +62,9 @@
     export default {
         data(){
             return{
-                apn_nom:"", //Esta variable, mediante v-model esta relacionada con el input del formulario
-                sexo:"",
-                numero:"",
+                apellido:"", //Esta variable, mediante v-model esta relacionada con el input del formulario
+                nombre:"",
+                dni:"",
                 update:0, /*Esta variable contrarolará cuando es una nueva tarea o una modificación, si es 0 significará que no hemos seleccionado
                           ninguna tarea, pero si es diferente de 0 entonces tendrá el id de la tarea y no mostrará el boton guardar sino el modificar*/
                 arrayTasks:[], //Este array contendrá las tareas de nuestra bd
@@ -73,7 +73,7 @@
         methods:{
             getTasks(){
                 let me =this;
-                let url = '/tareas' //Ruta que hemos creado para que nos devuelva todas las tareas
+                let url = '/persona' //Ruta que hemos creado para que nos devuelva todas las persona
                 axios.get(url).then(function (response) {
                     //creamos un array y guardamos el contenido que nos devuelve el response
                     me.arrayTasks = response.data;
@@ -85,11 +85,11 @@
             },
             saveTasks(){
                 let me =this;
-                let url = '/tareas/guardar' //Ruta que hemos creado para enviar una tarea y guardarla
+                let url = '/persona/guardar' //Ruta que hemos creado para enviar una tarea y guardarla
                 axios.post(url,{ //estas variables son las que enviaremos para que crear la tarea
-                    'apn_nom':this.apn_nom,
-                    'sexo':this.sexo,
-                    'numero':this.numero,
+                    'apellido':this.apellido,
+                    'nombre':this.nombre,
+                    'dni':this.dni,
 
                 }).then(function (response) {
                     me.getTasks();//llamamos al metodo getTask(); para que refresque nuestro array y muestro los nuevos datos
@@ -103,11 +103,11 @@
             updateTasks(){/*Esta funcion, es igual que la anterior, solo que tambien envia la variable update que contiene el id de la
                 tarea que queremos modificar*/
                 let me = this;
-                axios.put('/tareas/actualizar',{
-                    'idcliente':this.update,
-                    'apn_nom':this.apn_nom,
-                    'sexo':this.sexo,
-                    'numero':this.numero,
+                axios.put('/persona/actualizar',{
+                    'idpersona':this.update,
+                    'apellido':this.apellido,
+                    'nombre':this.nombre,
+                    'dni':this.dni,
 
                 }).then(function (response) {
                    me.getTasks();//llamamos al metodo getTask(); para que refresque nuestro array y muestro los nuevos datos
@@ -118,13 +118,13 @@
                 });
             },
             loadFieldsUpdate(data){ //Esta función rellena los campos y la variable update, con la tarea que queremos modificar
-                this.update = data.idcliente
+                this.update = data.idpersona
                 let me =this;
-                let url = '/tareas/buscar?idcliente='+this.update;
+                let url = '/persona/buscar?idpersona='+this.update;
                 axios.get(url).then(function (response) {
-                    me.apn_nom= response.data.apn_nom;
-                    me.sexo= response.data.sexo;
-                    me.numero= response.data.numero;
+                    me.apellido= response.data.apellido;
+                    me.nombre= response.data.nombre;
+                    me.dni= response.data.dni;
 
                 })
                 .catch(function (error) {
@@ -132,11 +132,11 @@
                     console.log(error);
                 }); 
             },
-            deleteTask(data){//Esta nos abrirá un alert de javascript y si aceptamos borrará la tarea que hemos elegidclienteo
+            deleteTask(data){//Esta nos abrirá un alert de javascript y si aceptamos borrará la tarea que hemos elegidpersonao
                 let me =this;
-                let task_id = data.idcliente
+                let task_id = data.idpersona
                 if (confirm('¿Seguro que deseas borrar esta tarea?')) {
-                    axios.delete('/tareas/borrar/'+task_id
+                    axios.delete('/persona/borrar/'+task_id
                     ).then(function (response) {
                         me.getTasks();
                     })
@@ -146,9 +146,9 @@
                 }
             },
             clearFields(){/*Limpia los campos e inicializa la variable update a 0*/
-                this.apn_nom = "";
-                this.sexo = "";
-                this.numero = "";
+                this.apellido = "";
+                this.nombre = "";
+                this.dni = "";
 
                 this.update = 0;
             }
@@ -158,3 +158,4 @@
         }
     }
 </script>
+

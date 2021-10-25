@@ -21,6 +21,7 @@ window.Vue = require('vue');
 
 
 Vue.component('formulario-component', require('./components/FormularioComponent.vue').default);
+Vue.component('formulario2-component', require('./components/Formulario2Component.vue').default);
 Vue.component('example1-component', require('./components/Example1Component.vue').default);
 Vue.component('bucles-component', require('./components/BuclesComponent.vue').default);
 Vue.component('condicional-component', require('./components/CondicionalComponent.vue').default);
